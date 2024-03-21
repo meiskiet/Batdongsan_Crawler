@@ -1,0 +1,163 @@
+"""
+# Find all img elements within the specified div class
+images = browser.find_elements(By.CSS_SELECTOR, '.re__card-image img')
+
+# Extract and print out the URLs
+for img in images:
+    # Check if 'src' attribute is present, otherwise get 'data-src'
+    img_url = img.get_attribute('src') if img.get_attribute('src') else img.get_attribute('data-src')
+    print(img_url)"""
+
+"""
+# Find all card elements on the page. This selector might need to be adjusted based on the actual HTML structure.
+card_elements = browser.find_elements(By.CSS_SELECTOR, '.re__card-image')
+
+# Initialize an empty list to hold the image URLs for each card
+all_image_urls = []
+
+# Loop through each card element
+for card in card_elements:
+    # Find all img elements within this card
+    image_elements = card.find_elements(By.TAG_NAME, 'img')
+    
+    # Extract the 'src' attribute from each img element and add them to the list
+    image_urls = [element.get_attribute('src') for element in image_elements]
+    
+    # Add the list of image URLs for this card to the all_image_urls list
+    all_image_urls.append(image_urls)
+
+
+# Print out the image URLs for each card
+for card_image_urls in all_image_urls:
+    print(", ".join(card_image_urls))
+
+for ele in eles:
+    #title
+    name_proj = ele.find_element(By.XPATH,'.//span[@class="pr-title js__card-title"]').text
+    print(f"{name_proj}")
+    print('------------------------------')
+time.sleep(60)
+re__card-description js__card-description
+"""
+
+"""
+for ele in eles:
+    #description
+    des_proj = ele.find_element(By.XPATH,'.//div[@class="re__card-description js__card-description"]').text
+    print(f"{des_proj}")
+    print('------------------------------')
+time.sleep(60)
+"""
+
+"""
+for ele in eles:
+    #price
+    price_proj = ele.find_element(By.XPATH,'.//span[@class="re__card-config-price js__card-config-item"]').text
+    print(f"{price_proj}")
+    print('------------------------------')
+time.sleep(60)
+"""
+
+"""
+for ele in eles:
+    #area
+    area_proj = ele.find_element(By.XPATH,'.//span[@class="re__card-config-area js__card-config-item"]').text
+    print(f"{area_proj}")
+    print('------------------------------')
+time.sleep(60)
+"""
+
+"""
+for ele in eles:
+    #price per area
+    price_per_area = ele.find_element(By.XPATH,'.//span[@class="re__card-config-price_per_m2 js__card-config-item"]').text
+    print(f"{price_per_area}")
+    print('------------------------------')
+time.sleep(10)
+"""
+
+"""
+for ele in eles:
+    #bedrooms
+    beds_proj = ele.find_element(By.XPATH, './/span[contains(@class, "re__card-config-bedroom")]/span').text
+    print(f"{beds_proj}")
+    print('------------------------------')
+time.sleep(10)
+"""
+
+"""
+for ele in eles:
+    try:
+        # Attempt to find the element containing the WC count
+        wc_proj = ele.find_element(By.XPATH, './/span[contains(@class, "re__card-config-toilet")]/span').text
+    except NoSuchElementException:
+        # If the element isn't found, default the WC count to "0"
+        wc_proj = "0"
+    
+    print(f"{wc_proj}")
+    print('------------------------------')
+"""
+
+
+"""
+for ele in eles:
+    #locations
+    location_text = ele.find_element(By.XPATH, './/div[contains(@class, "re__card-location")]/span[2]').text
+    print(f"{location_text}")
+    print('------------------------------')
+"""
+
+"""
+for ele in eles:
+    #title
+    name_proj = ele.find_element(By.XPATH,'.//span[@class="pr-title js__card-title"]').text
+    #price
+    price_proj = ele.find_element(By.XPATH,'.//span[@class="re__card-config-price js__card-config-item"]').text
+    #area
+    area_proj = ele.find_element(By.XPATH,'.//span[@class="re__card-config-area js__card-config-item"]').text
+    #price per area
+    price_per_area = ele.find_element(By.XPATH,'.//span[@class="re__card-config-price_per_m2 js__card-config-item"]').text
+    #bedrooms
+    beds_proj = ele.find_element(By.XPATH, './/span[contains(@class, "re__card-config-bedroom")]/span').text
+    #toilets
+    #wc_proj = ele.find_element(By.XPATH, './/span[contains(@class, "re__card-config-toilet")]/span').text
+    #locations
+    location_text = ele.find_element(By.XPATH, './/div[contains(@class, "re__card-location")]/span[2]').text
+    print(f"{name_proj} | {price_proj} | {area_proj} | {price_per_area} | {beds_proj} |  {location_text}")
+    print('------------------------------')
+"""
+
+"""
+def get_element_text_or_default(parent, xpath, default="0"):
+    try:
+        return parent.find_element(By.XPATH, xpath).text
+    except NoSuchElementException:
+        return default
+
+for ele in eles:
+    # Title
+    name_proj = get_element_text_or_default(ele, './/span[@class="pr-title js__card-title"]', "N/A")
+    # Price
+    price_proj = get_element_text_or_default(ele, './/span[@class="re__card-config-price js__card-config-item"]', "N/A")
+    # Area
+    area_proj = get_element_text_or_default(ele, './/span[@class="re__card-config-area js__card-config-item"]', "N/A")
+    # Price per area
+    price_per_area = get_element_text_or_default(ele, './/span[@class="re__card-config-price_per_m2 js__card-config-item"]', "N/A")
+    # Bedrooms
+    beds_proj = get_element_text_or_default(ele, './/span[contains(@class, "re__card-config-bedroom")]/span', "N/A")
+    # Toilets
+    wc_proj= get_element_text_or_default(ele, './/span[contains(@class, "re__card-config-toilet")]/span', "N/A")
+    # Locations
+    location_text = get_element_text_or_default(ele, './/div[contains(@class, "re__card-location")]/span[2]', "N/A")
+    #description
+    des_proj = get_element_text_or_default(ele, './/div[@class="re__card-description js__card-description"]', "N/A")
+    # Extract the image URLs
+    image_elements = get_element_text_or_default(ele,'.//div[contains(@class, "re__img-parent")]//img')[:3]')
+    image_urls = [img.get_attribute('src') for img in image_elements]
+
+    # Combine all image URLs into a single string for Excel (or choose how to format)
+    image_urls_str = "; ".join(image_urls)  # Joining with semicolon and space
+    
+    print(f"{name_proj} | {price_proj} | {area_proj} | {price_per_area} | {beds_proj} | {wc_proj} | {location_text} | {image_urls}")
+    print('------------------------------')
+"""
