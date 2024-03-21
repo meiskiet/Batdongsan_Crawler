@@ -17,7 +17,7 @@ ser = Service(path)
 
 browser =  webdriver.Chrome(service=ser)
 wait = WebDriverWait(browser, 10)
-browser.get("https://batdongsan.com.vn/nha-dat-ban/p30")
+browser.get("https://batdongsan.com.vn/nha-dat-ban/p201")
 browser.maximize_window()
 time.sleep(5)
 
@@ -66,12 +66,16 @@ for ele in eles:
     location_text = get_element_text_or_default(ele, './/div[@class="re__card-location"]/span', "N/A")
     des_proj = get_element_text_or_default(ele, './/div[@class="re__card-description js__card-description"]', "N/A")
 
-    # Extract Date and Agent Name
     contact_ele = ele.find_element(By.XPATH, './/ancestor::div[contains(@class, "re__card")]//div[@class="re__card-contact"]')
     date_span = contact_ele.find_element(By.XPATH, './/span[@class="re__card-published-info-published-at"]')
     date = date_span.get_attribute("aria-label")
+    agent_name = "N/A" #If cards don't have agent name [Page 66+]
+
+    """
+    # Extract Date and Agent Name (for cards that have agent namen)
     agent_name_ele = contact_ele.find_element(By.XPATH, './/div[contains(@class, "re__card-published-info-agent-profile-name")]')
     agent_name = agent_name_ele.text.strip()
+    """ 
 
      # Write the basic data to the Excel sheet
     data = [agent_name, name_proj, date, price_proj, area_proj, price_per_area, beds_proj, wc_proj, des_proj, location_text] 
@@ -107,6 +111,6 @@ for ele in eles:
     row_index += 1  # Move to the next row in the Excel sheet
 
 # Save the workbook
-workbook.save(r'D:\DOWNLOADS\Crawl_batdongsan\Output_dataset\Data 1000\D1- 200\PD_30.xls')  # Save the Excel file
+workbook.save(r'D:\DOWNLOADS\Crawl_batdongsan\Output_dataset\Data 1000\D201-300\PD_201.xls')  # Save the Excel file
 browser.quit()  # Close the browser after scraping is done
 
