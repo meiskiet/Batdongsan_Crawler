@@ -12,12 +12,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 chrome_options = Options()
-path = r"D:\Set up\chromedriver-win64\chromedriver-win64\chromedriver.exe"
+path = r"D:\App exe\chromedriver-win64\chromedriver.exe"
 ser = Service(path)
 
 browser =  webdriver.Chrome(service=ser)
 wait = WebDriverWait(browser, 10)
-browser.get("https://batdongsan.com.vn/nha-dat-ban/p201")
+browser.get("https://batdongsan.com.vn/nha-dat-ban/p30")
 browser.maximize_window()
 time.sleep(5)
 
@@ -111,6 +111,6 @@ for ele in eles:
     row_index += 1  # Move to the next row in the Excel sheet
 
 # Save the workbook
-workbook.save(r'D:\DOWNLOADS\Crawl_batdongsan\Output_dataset\Data 1000\D201-300\PD_201.xls')  # Save the Excel file
+workbook.save(r'D:\DOWNLOADS\Crawl_batdongsan\Output_dataset\Data 1000\D1- 200\PD_30.xls')  # Save the Excel file
 browser.quit()  # Close the browser after scraping is done
 
