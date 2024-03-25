@@ -12,13 +12,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 chrome_options = Options()
-path = r"D:\App exe\chromedriver-win64\chromedriver.exe"
+path = r"D:\Set up\chromedriver-win64\chromedriver-win64\chromedriver.exe"
 ser = Service(path)
 
 browser =  webdriver.Chrome(service=ser)
 wait = WebDriverWait(browser, 10)
-browser.get("https://batdongsan.com.vn/nha-dat-ban/p30")
-browser.maximize_window()
+browser.get("https://batdongsan.com.vn/nha-dat-ban/p42?h=bac")
+#browser.maximize_window()
 time.sleep(5)
 
 eles = browser.find_elements(By.XPATH,'//div[@class="re__card-info-content"]')
@@ -28,7 +28,7 @@ workbook = xlwt.Workbook()
 sheet = workbook.add_sheet('Property Data')  
 
 # Define column titles, 
-columns = ["Agent", "Title",  "Date posted", "Price", "Area", "Price per Area", "Bedrooms", "Toilets", "Description", "Location", "URLS_Img_1", "URLS_Img_2", "URLS_Img_3", "URLS_Img_4", "Link posted"]
+columns = ["Agent", "Title",  "Date posted", "Price", "Area", "Price per Area", "Bedrooms", "Toilets", "Description", "Direction", "Location", "URLS_Img_1", "URLS_Img_2", "URLS_Img_3", "URLS_Img_4", "Link posted"]
 for i, column in enumerate(columns):
     sheet.write(0, i, column)  # Write the column headers
 
@@ -70,15 +70,16 @@ for ele in eles:
     date_span = contact_ele.find_element(By.XPATH, './/span[@class="re__card-published-info-published-at"]')
     date = date_span.get_attribute("aria-label")
     agent_name = "N/A" #If cards don't have agent name [Page 66+]
+    direction = "Bắc"
 
     """
     # Extract Date and Agent Name (for cards that have agent namen)
     agent_name_ele = contact_ele.find_element(By.XPATH, './/div[contains(@class, "re__card-published-info-agent-profile-name")]')
     agent_name = agent_name_ele.text.strip()
-    """ 
+    """
 
      # Write the basic data to the Excel sheet
-    data = [agent_name, name_proj, date, price_proj, area_proj, price_per_area, beds_proj, wc_proj, des_proj, location_text] 
+    data = [agent_name, name_proj, date, price_proj, area_proj, price_per_area, beds_proj, wc_proj, des_proj, direction, location_text] 
 
     # Extract and append image URLs
     images = ele.find_elements(By.XPATH, './/ancestor::div[contains(@class, "re__card")]//img')
@@ -97,13 +98,13 @@ for ele in eles:
     # Extend the data list with the image URLs
     data.extend(img_urls + ["N/A"] * (4 - len(img_urls)))  # Ensure there are always 4 URL fields
 
-    # Extract the property link
+    # Extract the property link  
     property_link_element = ele.find_element(By.XPATH, './/ancestor::div[contains(@class, "re__card")]//a[contains(@class, "js__product-link-for-product-id")]')
     property_link = property_link_element.get_attribute('href')
     data.append(property_link)
 
     print(data)
-    print("-----------------")
+    print("===========================================================================================")
 
     for i, value in enumerate(data):
         sheet.write(row_index, i, value)
@@ -111,6 +112,6 @@ for ele in eles:
     row_index += 1  # Move to the next row in the Excel sheet
 
 # Save the workbook
-workbook.save(r'D:\DOWNLOADS\Crawl_batdongsan\Output_dataset\Data 1000\D1- 200\PD_30.xls')  # Save the Excel file
+workbook.save(r'Output_dataset\BAC\D1-100\PD_42.xls')  # Save the Excel file
 browser.quit()  # Close the browser after scraping is done
 
