@@ -12,12 +12,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 chrome_options = Options()
-path = r"D:\Set up\chromedriver-win64\chromedriver-win64\chromedriver.exe"
+path = r"D:\App exe\chromedriver-win64\chromedriver.exe"
 ser = Service(path)
 
 browser =  webdriver.Chrome(service=ser)
 wait = WebDriverWait(browser, 10)
-browser.get("https://batdongsan.com.vn/nha-dat-ban/p42?h=bac")
+browser.get("https://batdongsan.com.vn/nha-dat-ban/p49")
 #browser.maximize_window()
 time.sleep(5)
 
@@ -62,21 +62,21 @@ for ele in eles:
     price_per_area = get_element_text_or_default(ele, './/span[@class="re__card-config-price_per_m2 js__card-config-item"]', "N/A")
     beds_proj = get_element_text_or_default(ele, './/span[contains(@class, "re__card-config-bedroom")]/span', "N/A")
     wc_proj = get_element_text_or_default(ele, './/span[contains(@class, "re__card-config-toilet")]/span', "N/A")
-    #location_text = get_element_text_or_default(ele, './/div[contains(@class, "re__card-location")]/span[2]', "N/A") [PAGE 1-18]
+    #location_text = get_element_text_or_default(ele, './/div[contains(@class, "re__card-location")]/span[2]', "N/A") #[PAGE 1-18]
     location_text = get_element_text_or_default(ele, './/div[@class="re__card-location"]/span', "N/A")
     des_proj = get_element_text_or_default(ele, './/div[@class="re__card-description js__card-description"]', "N/A")
 
     contact_ele = ele.find_element(By.XPATH, './/ancestor::div[contains(@class, "re__card")]//div[@class="re__card-contact"]')
     date_span = contact_ele.find_element(By.XPATH, './/span[@class="re__card-published-info-published-at"]')
     date = date_span.get_attribute("aria-label")
-    agent_name = "N/A" #If cards don't have agent name [Page 66+]
-    direction = "Bắc"
+    #agent_name = "N/A" #If cards don't have agent name [Page 66+]
+    direction = "N/A"
 
-    """
+    
     # Extract Date and Agent Name (for cards that have agent namen)
     agent_name_ele = contact_ele.find_element(By.XPATH, './/div[contains(@class, "re__card-published-info-agent-profile-name")]')
     agent_name = agent_name_ele.text.strip()
-    """
+    
 
      # Write the basic data to the Excel sheet
     data = [agent_name, name_proj, date, price_proj, area_proj, price_per_area, beds_proj, wc_proj, des_proj, direction, location_text] 
@@ -112,6 +112,6 @@ for ele in eles:
     row_index += 1  # Move to the next row in the Excel sheet
 
 # Save the workbook
-workbook.save(r'Output_dataset\BAC\D1-100\PD_42.xls')  # Save the Excel file
+workbook.save(r'D:\NCKH\Batdongsan_Crawler\Output_dataset\Bonus Data\D5\PD_49.xls')  # Save the Excel file
 browser.quit()  # Close the browser after scraping is done
 
